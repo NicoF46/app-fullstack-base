@@ -1,3 +1,5 @@
+declare const M: any;
+
 class Main implements EventListenerObject, GetResponseLister {
   private nombre: string;
   private lista: Array<Device> = new Array();
@@ -10,8 +12,13 @@ class Main implements EventListenerObject, GetResponseLister {
   public handleEvent(ev: Event) {
     let objetoEvento = <HTMLElement>ev.target;
     if (ev.type == "click") {
-      console.log(objetoEvento);
-      this.framework.requestGET("http://localhost:8000/devices", this);
+      console.log(objetoEvento.id);
+      if (objetoEvento.id.includes("trash_")){
+        console.log("El elemento se va a eliminar");
+      }
+      else if ((objetoEvento.id == "submit_btn")){
+        console.log("Se va a enviar el form");
+      }
     }
   }
 
@@ -57,4 +64,8 @@ window.onload = function inicio() {
   let miObjeto: Main = new Main();
   let boton = miObjeto.getElement("add_button");
   boton.addEventListener("click", miObjeto);
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems);
+  let submit_btn = miObjeto.getElement("submit_btn");
+  submit_btn.addEventListener("click",miObjeto);
 };

@@ -1,6 +1,6 @@
 declare const M: any;
 
-class Main implements EventListenerObject, GetResponseLister {
+class Main implements EventListenerObject, RestResponseLister {
   private nombre: string;
   private lista: Array<Device> = new Array();
   private framework: FrameWork = new FrameWork();
@@ -14,16 +14,32 @@ class Main implements EventListenerObject, GetResponseLister {
     if (ev.type == "click") {
       console.log(objetoEvento.id);
       if (objetoEvento.id.includes("trash_")){
-        console.log("El elemento se va a eliminar");
+        this.delete_device(objetoEvento.id);
       }
       else if ((objetoEvento.id == "submit_btn")){
         console.log("Se va a enviar el form");
+        this.add_device();
       }
     }
   }
 
   public getElement(id: string): HTMLElement {
     return document.getElementById(id);
+  }
+
+  public add_device(){
+    let requestBody = {
+      "id": this.getElement("device_id")["value"],
+      "name": this.getElement("device_name")["value"],
+      "description": this.getElement("device_description")["value"],
+      "type": this.getElement("device_type")["value"]
+    };
+    this.framework.requestPOST("http://localhost:8000/devices", this, JSON.stringify(requestBody));
+  }
+
+  public delete_device(id: string){
+    let device_id = id.split("_").pop();
+    this.framework.requestDELETE("http://localhost:8000/devices/" + device_id, this);
   }
 
   public list_devices() {
@@ -46,17 +62,25 @@ class Main implements EventListenerObject, GetResponseLister {
           </p>
         </form></a>
         <button class="btn waves-effect waves-light button-view" name="delete_button" id=trash_${device.id}>
-            <i class="small material-icons red-text id="trash_${device.id}">delete</i>
+            <i class="small material-icons red-text">delete</i>
         </button>
       </li>`;
     }
 
-    for (let device of devices) {
-      let device_bar = this.getElement("bar_" + device.id);
-      let device_delete = this.getElement("trash_" + device.id);
+    for (let device_iterator of devices) {
+      let device_bar = this.getElement("bar_" + device_iterator.id);
       device_bar.addEventListener("click", this);
+      let device_delete = this.getElement("trash_" + device_iterator.id);
       device_delete.addEventListener("click", this);
     }
+  }
+
+  public handlerDeleteResponse(status: number, response: string) {
+    this.list_devices();
+  }
+
+  public handlerPostResponse(status: number, response: string) {
+    this.list_devices();
   }
 }
 

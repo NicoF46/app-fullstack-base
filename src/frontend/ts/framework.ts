@@ -37,5 +37,16 @@ class FrameWork{
             xml.send(requestBody);
     }
 
+    public requestPUT(url: string, lister:RestResponseLister, requestBody: string){
+        let xml = new XMLHttpRequest();
+        xml.onreadystatechange = function ServerResponse(){
+            if (xml.readyState == 4){
+                lister.handlerPostResponse(xml.status,xml.responseText)
+                }
 
+            }
+            xml.open("PUT", url, true);
+            xml.setRequestHeader('Content-Type', 'application/json');
+            xml.send(requestBody);
+    }
 }

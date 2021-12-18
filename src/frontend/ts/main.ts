@@ -1,15 +1,15 @@
 declare const M: any;
 
 class Main implements EventListenerObject, RestResponseLister {
-  private nombre: string;
-  private device_list: Array<Device> = new Array();
+  private deviceList: Array<Device> = new Array();
   private framework: FrameWork = new FrameWork();
-  private current_device: Device;
+  private currentDevice: Device;
 
   constructor() {
     this.list_devices();
   }
 
+// Method to handle the UI actions
   public handleEvent(ev: Event) {
     let objetoEvento = <HTMLElement>ev.target;
     if (ev.type == "click") {
@@ -21,7 +21,7 @@ class Main implements EventListenerObject, RestResponseLister {
         this.update_device(objetoEvento.id);
       }
       else if(objetoEvento.id.includes("update_")){
-        this.current_device = this.device_list.find((e) => e.id === Number(objetoEvento.id.split("_").pop()));
+        this.currentDevice = this.deviceList.find((e) => e.id === Number(objetoEvento.id.split("_").pop()));
         
       }
     } else if (ev.type == "change" && objetoEvento.id.includes("bar")) {
@@ -29,10 +29,12 @@ class Main implements EventListenerObject, RestResponseLister {
     }
   }
 
+// Method to fetch the id of an html element
   public getElement(id: string): HTMLElement {
     return document.getElementById(id);
   }
 
+// Method to request the addition of an new element to the backend
   public add_device() {
     let requestBody = {
       id: this.getElement("device_id")["value"],
@@ -47,27 +49,30 @@ class Main implements EventListenerObject, RestResponseLister {
     );
   }
 
+// Method to request the deletion of an element to the backend
   public delete_device(id: string) {
-    let device_id = id.split("_").pop();
+    let deviceId = id.split("_").pop();
     this.framework.requestDELETE(
-      "http://localhost:8000/devices/" + device_id,
+      "http://localhost:8000/devices/" + deviceId,
       this
     );
   }
 
+// Method to request the list of devices from the backend
   public list_devices() {
     this.framework.requestGET("http://localhost:8000/devices", this);
   }
 
+//Method to request the update of the state value of a device to the backend
   public set_device_value(id: string) {
-    let device_id = id.split("_").pop();
-    let device_data = this.device_list.find((e) => e.id === Number(device_id));
+    let deviceId = id.split("_").pop();
+    let deviceData = this.deviceList.find((e) => e.id === Number(deviceId));
     let requestBody = {
-      id: device_data.id,
-      name: device_data.name,
-      description: device_data.description,
-      type: device_data.type,
-      state: this.getElement("bar_" + device_id)["value"],
+      id: deviceData.id,
+      name: deviceData.name,
+      description: deviceData.description,
+      type: deviceData.type,
+      state: this.getElement("bar_" + deviceId)["value"],
     };
     this.framework.requestPUT(
       "http://localhost:8000/devices",
@@ -76,13 +81,14 @@ class Main implements EventListenerObject, RestResponseLister {
     );
   }
 
+//Method to request the update of a device to the backend
   public update_device(id: string) {
     let requestBody = {
-      id: this.current_device.id,
+      id: this.currentDevice.id,
       name: this.getElement("update_device_name")["value"],
       description: this.getElement("update_device_description")["value"],
       type: this.getElement("update_device_type")["value"],
-      state: this.current_device.state,
+      state: this.currentDevice.state,
     };
     this.framework.requestPUT(
       "http://localhost:8000/devices",
@@ -91,9 +97,10 @@ class Main implements EventListenerObject, RestResponseLister {
     );
   }
 
+//Method to handle the response from the GET response 
   public handlerGetResponse(status: number, response: string) {
     let devices: Array<Device> = JSON.parse(response);
-    this.device_list = devices;
+    this.deviceList = devices;
     let devices_list = this.getElement("devices_list");
     devices_list.innerHTML = "";
     for (let device of devices) {
@@ -117,8 +124,8 @@ class Main implements EventListenerObject, RestResponseLister {
     }
 
     for (let device_iterator of devices) {
-      let device_bar = this.getElement("bar_" + device_iterator.id);
-      device_bar.addEventListener("change", this);
+      let deviceBar = this.getElement("bar_" + device_iterator.id);
+      deviceBar.addEventListener("change", this);
       let device_delete = this.getElement("delete_btn_" + device_iterator.id);
       device_delete.addEventListener("click", this);
       let device_edit = this.getElement("update_" + device_iterator.id);
@@ -126,27 +133,31 @@ class Main implements EventListenerObject, RestResponseLister {
     }
   }
 
+//Method to handle the response from the DELETE response 
   public handlerDeleteResponse(status: number, response: string) {
     this.list_devices();
   }
 
+//Method to handle the response from the POST response 
   public handlerPostResponse(status: number, response: string) {
     this.list_devices();
   }
 
+//Method to handle the response from the PUT response 
   public handlerPutResponse(status: number, response: string) {
     this.list_devices();
   }
 }
 
+// INITIALIZE VARIABLES
 window.onload = function inicio() {
   let miObjeto: Main = new Main();
   let boton = miObjeto.getElement("add_button");
   boton.addEventListener("click", miObjeto);
   var elems = document.querySelectorAll(".modal");
   var instances = M.Modal.init(elems);
-  let submit_btn = miObjeto.getElement("submit_btn");
-  submit_btn.addEventListener("click", miObjeto);
-  let submit_btn_update = miObjeto.getElement("submit_btn_update");
-  submit_btn_update.addEventListener("click", miObjeto);
+  let submitBtn = miObjeto.getElement("submit_btn");
+  submitBtn.addEventListener("click", miObjeto);
+  let submitBtnUpdate = miObjeto.getElement("submit_btn_update");
+  submitBtnUpdate.addEventListener("click", miObjeto);
 };

@@ -24,16 +24,23 @@
         <br />
         <h3>Smart Home Devices</h3>
         <br />
+        <div class="col s8 m8 l8 xl8">
+          <button class="btn waves-effect waves-light button-view modal-trigger" name="hello_button"
+            data-target="modal1" id="add_button">
+            ADD DEVICE
+          </button>
+          <button class="btn waves-effect waves-light button-view" name="list_btn" id=list_btn>
+            <i class="small material-icons white-text">list</i>
+          </button>
+          <button class="btn waves-effect waves-light button-view" name="icon_btn" id=icon_btn>
+            <i class="small material-icons white-text">image</i>
+          </button>
+        </div>
+
         <div class="row">
           <div class="input-field col s12 m12 l12 xl12">
             <ul class="collection" id="devices_list"></ul>
             <textarea id="textarea_1" class="materialize-textarea" style="height: 150px" readonly></textarea>
-          </div>
-          <div class="col s4 m4 l2 xl2">
-            <button class="btn waves-effect waves-light button-view modal-trigger" name="hello_button"
-              data-target="modal1" id="add_button">
-              ADD
-            </button>
           </div>
           <!-- Modal -->
           <div id="modal1" class="modal">
@@ -145,4 +152,5 @@
     <script type="text/javascript" src="js/device.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
   </body>
+
 </html>

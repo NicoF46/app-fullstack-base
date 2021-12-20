@@ -51,10 +51,15 @@ app.post("/devices/", function (req, res, next) {
 app.put("/devices/", function (req, res, next) {
   utils.query(
     "UPDATE Devices SET name = ?, description = ?, state = ?, type = ?  WHERE id = ? ",
-    [req.body.name, req.body.description, req.body.state, req.body.type, req.body.id],
+    [
+      req.body.name,
+      req.body.description,
+      req.body.state,
+      req.body.type,
+      req.body.id,
+    ],
     function (error, results, fields) {
       if (error) {
-        console.log(error);
         res.status(500).send({
           error: "Ha ocurrido un error, intente nuevamente más tarde.",
         });
@@ -68,21 +73,23 @@ app.put("/devices/", function (req, res, next) {
 //Endpoint to delete a device
 
 app.delete("/devices/:id", function (req, res, next) {
-    utils.query(
-      "DELETE from Devices WHERE id = ? ",
-      [req.params.id],
-      function (error, results, fields) {
-        if (error) {
-          console.log(error);
-          res.status(500).send({
-            error: "Ha ocurrido un error, intente nuevamente más tarde.",
-          });
-          return;
-        }
-        res.status(200).send({message: "Se ha eliminado el device correctamente"});
+  utils.query(
+    "DELETE from Devices WHERE id = ? ",
+    [req.params.id],
+    function (error, results, fields) {
+      if (error) {
+        console.log(error);
+        res.status(500).send({
+          error: "Ha ocurrido un error, intente nuevamente más tarde.",
+        });
+        return;
       }
-    );
-  });
+      res
+        .status(200)
+        .send({ message: "Se ha eliminado el device correctamente" });
+    }
+  );
+});
 
 app.listen(PORT, function (req, res) {
   console.log("NodeJS API running correctly");

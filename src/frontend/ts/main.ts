@@ -187,16 +187,11 @@ class Main implements EventListenerObject, RestResponseLister {
 // INITIALIZE VARIABLES
 window.onload = function inicio() {
   let miObjeto: Main = new Main();
-  let boton = miObjeto.getElement("add_button");
-  boton.addEventListener("click", miObjeto);
+  let buttons: Array<string> = ["add_button", "submit_btn", "submit_btn_update", "icon_btn", "list_btn" ];
+  for (let button of buttons) {
+    let btn = miObjeto.getElement(button);
+    btn.addEventListener("click", miObjeto);
+  }
   var elems = document.querySelectorAll(".modal");
   var instances = M.Modal.init(elems);
-  let submitBtn = miObjeto.getElement("submit_btn");
-  submitBtn.addEventListener("click", miObjeto);
-  let submitBtnUpdate = miObjeto.getElement("submit_btn_update");
-  submitBtnUpdate.addEventListener("click", miObjeto);
-  let iconBtn = miObjeto.getElement("icon_btn");
-  iconBtn.addEventListener("click", miObjeto);
-  let listBtn = miObjeto.getElement("list_btn");
-  listBtn.addEventListener("click", miObjeto);
 };

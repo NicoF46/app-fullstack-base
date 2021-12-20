@@ -158,43 +158,134 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 ### Agregar un dispositivo
 
-Completá los pasos para agregar un dispositivo desde el cliente web.
+Para agregar un nuevo dispositivo, se puede utilizar el boton ADD DEVICE.
+
+### Editar las caracteristicas de un dispositivo
+
+Para editar un dispositivo se debe realizar un click sobre el boton editar, al hacer click se desplegar un modal para completar con las nuevas caracteristicas.
+
+### Modificar el estado de un dispositivo
+Para modificar el estado de un dispositivo se debe ajustar la posicion de la barra.
+
+### Eliminar un dispositivo
+
+Para eliminar un dispositivo se debe hacer click sobre el boton eliminar.
 
 ### Frontend
 
-Completá todos los detalles sobre cómo armaste el frontend, sus interacciones, etc.
+El Frontend esta formado por una serie de botones (ADD DEVICE - LIST_VIEW - ICON-VIEW) y un listado de dispositivos.
+El listado de dispositivos se puede visualizar como iconos o un listado utilizando los botones LIST_VIEW Y ICON_VIEW.
+Dentro del listado de dispositivos, se pueden editar y eliminar el dispositivo seleccionado.
+El frontend se compone de una clase principal MAIN, esta clase se encargada de inicializar los elementos de la UI con las respectivas acciones.
+Esta clase implementa una interfaz RestResponseLister para incluir el comportamiento de las request HTTP con el backend.
+ 
 
 ### Backend
 
-Completá todos los detalles de funcionamiento sobre el backend, sus interacciones con el cliente web, la base de datos, etc.
-
-<details><summary><b>Ver los endpoints disponibles</b></summary><br>
-
-Completá todos los endpoints del backend con los metodos disponibles, los headers y body que recibe, lo que devuelve, ejemplos, etc.
+En esta seccion se muestra el listado de los endpoints que dispone el backend, para la documentacion se incluye el comando curl y la response correspondiente:
 
 1) Devolver el estado de los dispositivos.
 
-```json
-{
-    "method": "get",
-    "request_headers": "application/json",
-    "request_body": "",
-    "response_code": 200,
-    "request_body": {
-        "devices": [
-            {
-                "id": 1,
-                "status": true,
-                "description": "Kitchen light"
-            }
-        ]
+`
+curl --location --request GET 'http://localhost:8000/devices'
+`
+
+Response: Status 201
+Body
+[
+    {
+        "id": 1,
+        "name": "Pepe Actualizado",
+        "description": "12",
+        "state": 70,
+        "type": 12
     },
-}
-``` 
+    {
+        "id": 2,
+        "name": "Lampara 2",
+        "description": "Luz cocina",
+        "state": 25,
+        "type": 0
+    },
+    {
+        "id": 4,
+        "name": "Persiana 1",
+        "description": "Persiana living",
+        "state": 23,
+        "type": 1
+    },
+    {
+        "id": 5,
+        "name": "Actualizado",
+        "description": "12",
+        "state": 5,
+        "type": 12
+    },
+    {
+        "id": 12,
+        "name": "waw",
+        "description": "wwww",
+        "state": 90,
+        "type": 12
+    },
+    {
+        "id": 12333,
+        "name": "fafa",
+        "description": "fefe",
+        "state": 0,
+        "type": 23
+    }
+]
 
-</details>
+2) Agregar un dispositivo.
+`
+curl --location --request POST 'http://localhost:8000/devices' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "id":10,
+    "name": "Nombre del nuevo dispositivo",
+    "description": "Descripcion del nuevo dispositivo",
+    "type": 0
+}'
+`
 
-</details>
+Response: Status 201
+Body: 
+
+3) Editar un dispositivo.
+`
+curl --location --request PUT 'http://localhost:8000/devices' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "id":12333,
+    "name": "Nuevo nombre del dispositivo",
+    "description": "Nueva descripcion del dispositivo",
+    "state": 1,
+    "type": 0
+}'
+`
+
+Response: Status 200
+Body: 
+
+4) Eliminar un dispositivo.
+`
+curl --location --request DELETE 'http://localhost:8000/devices/{{device_id}}'
+}'
+`
+
+Response: Status 200
+Body: 
+
+
+## DEMO
+En el siguiente link se encuentra un video de funcionamiento de la app.
+https://drive.google.com/file/d/1sIk-CBSV34Tl36xAPFGEXqXUdv6DT_YE/view?usp=sharing
+
+## PROXIMOS PASOS
+* Agregar la posibilidad de incluir una imagen por dispositivo.
+* Hacer un refactor del codigo de frontend para simplificarlo.
+* Personalizar los links del proyecto.
 
 
 ## Tecnologías utilizadas 🛠️
@@ -243,6 +334,7 @@ Las colaboraciones principales fueron realizadas por:
 * **[Agustin Bassi](https://github.com/agustinBassi)**: Ideación, puesta en marcha y mantenimiento del proyecto.
 * **[Ernesto Giggliotti](https://github.com/ernesto-g)**: Creación inicial del frontend, elección de Material Design.
 * **[Brian Ducca](https://github.com/brianducca)**: Ayuda para conectar el backend a la base de datos, puesta a punto de imagen de Docker.
+* **[Nicolas Funes](https://github.com/NicoF46)**: Mofificacion del codigo base de frontend y backend.
 
 También podés mirar todas las personas que han participado en la [lista completa de contribuyentes](https://github.com/###/contributors).
 

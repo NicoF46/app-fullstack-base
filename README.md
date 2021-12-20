@@ -193,6 +193,8 @@ curl --location --request GET 'http://localhost:8000/devices'
 `
 Response: Status 201
 Body
+`
+
 ```json
 [
     {
@@ -239,7 +241,6 @@ Body
     }
 ]
 ```
-`
 
 2) Agregar un dispositivo.
 `

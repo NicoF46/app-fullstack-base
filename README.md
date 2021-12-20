@@ -243,6 +243,7 @@ Body
 ```
 
 2) Agregar un dispositivo.
+
 `
 curl --location --request POST 'http://localhost:8000/devices' \
 --header 'Content-Type: application/json' \
@@ -260,6 +261,7 @@ Body:
 `
 
 3) Editar un dispositivo.
+
 `
 curl --location --request PUT 'http://localhost:8000/devices' \
 --header 'Content-Type: application/json' \
@@ -278,6 +280,7 @@ Body:
 `
 
 4) Eliminar un dispositivo.
+
 `
 curl --location --request DELETE 'http://localhost:8000/devices/{{device_id}}'
 }'

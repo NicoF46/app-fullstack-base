@@ -113,6 +113,7 @@ class Main implements EventListenerObject, RestResponseLister {
     devices_list.innerHTML = "";
     for (let device of devices) {
       if (this.showOption == "icon") {
+        // LIST DEVICES VIEW
         devices_list.innerHTML += ` <div class="card col s4 m4 l4 xl4">
       <div class="card-image waves-effect waves-block waves-light">
         <img class="activator" src="static/images/robot.jpg">
@@ -139,6 +140,7 @@ class Main implements EventListenerObject, RestResponseLister {
       </div>
     </div>`;
       } else
+        // ICON DEVICES VIEW
         devices_list.innerHTML += `<li class="collection-item avatar">
         <img src="static/images/robot.jpg" alt="" class="circle">
         <span class="title">${device.name}</span>

@@ -190,8 +190,12 @@ En esta seccion se muestra el listado de los endpoints que dispone el backend, p
 curl --location --request GET 'http://localhost:8000/devices'
 `
 
+`
 Response: Status 201
 Body
+`
+
+```json
 [
     {
         "id": 1,
@@ -236,8 +240,10 @@ Body
         "type": 23
     }
 ]
+```
 
 2) Agregar un dispositivo.
+
 `
 curl --location --request POST 'http://localhost:8000/devices' \
 --header 'Content-Type: application/json' \
@@ -249,10 +255,13 @@ curl --location --request POST 'http://localhost:8000/devices' \
 }'
 `
 
+`
 Response: Status 201
 Body: 
+`
 
 3) Editar un dispositivo.
+
 `
 curl --location --request PUT 'http://localhost:8000/devices' \
 --header 'Content-Type: application/json' \
@@ -265,18 +274,22 @@ curl --location --request PUT 'http://localhost:8000/devices' \
 }'
 `
 
+`
 Response: Status 200
 Body: 
+`
 
 4) Eliminar un dispositivo.
+
 `
 curl --location --request DELETE 'http://localhost:8000/devices/{{device_id}}'
 }'
 `
 
+`
 Response: Status 200
 Body: 
-
+`
 
 ## DEMO
 En el siguiente link se encuentra un video de funcionamiento de la app.
@@ -286,6 +299,7 @@ https://drive.google.com/file/d/1sIk-CBSV34Tl36xAPFGEXqXUdv6DT_YE/view?usp=shari
 * Agregar la posibilidad de incluir una imagen por dispositivo.
 * Hacer un refactor del codigo de frontend para simplificarlo.
 * Personalizar los links del proyecto.
+* Refactorizar botones con iconos de la UI.
 
 
 ## Tecnologías utilizadas 🛠️
@@ -334,7 +348,7 @@ Las colaboraciones principales fueron realizadas por:
 * **[Agustin Bassi](https://github.com/agustinBassi)**: Ideación, puesta en marcha y mantenimiento del proyecto.
 * **[Ernesto Giggliotti](https://github.com/ernesto-g)**: Creación inicial del frontend, elección de Material Design.
 * **[Brian Ducca](https://github.com/brianducca)**: Ayuda para conectar el backend a la base de datos, puesta a punto de imagen de Docker.
-* **[Nicolas Funes](https://github.com/NicoF46)**: Mofificacion del codigo base de frontend y backend.
+* **[Nicolas Funes](https://github.com/NicoF46)**: Modificacion del codigo base de frontend y backend.
 
 También podés mirar todas las personas que han participado en la [lista completa de contribuyentes](https://github.com/###/contributors).
 

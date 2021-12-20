@@ -7,7 +7,7 @@ class Main implements EventListenerObject, RestResponseLister {
   private showOption: String;
 
   constructor() {
-    this.list_devices();
+    this.listDevices();
     this.showOption = "list";
   }
 
@@ -27,10 +27,10 @@ class Main implements EventListenerObject, RestResponseLister {
         );
       } else if (objetoEvento.id == "icon_btn") {
         this.showOption = "icon";
-        this.list_devices();
+        this.listDevices();
       } else if (objetoEvento.id == "list_btn") {
         this.showOption = "list";
-        this.list_devices();
+        this.listDevices();
       }
     } else if (ev.type == "change" && objetoEvento.id.includes("bar")) {
       this.set_device_value(objetoEvento.id);
@@ -67,7 +67,7 @@ class Main implements EventListenerObject, RestResponseLister {
   }
 
   // Method to request the list of devices from the backend
-  public list_devices() {
+  public listDevices() {
     this.framework.requestGET("http://localhost:8000/devices", this);
   }
 
@@ -170,17 +170,17 @@ class Main implements EventListenerObject, RestResponseLister {
 
   //Method to handle the response from the DELETE response
   public handlerDeleteResponse(status: number, response: string) {
-    this.list_devices();
+    this.listDevices();
   }
 
   //Method to handle the response from the POST response
   public handlerPostResponse(status: number, response: string) {
-    this.list_devices();
+    this.listDevices();
   }
 
   //Method to handle the response from the PUT response
   public handlerPutResponse(status: number, response: string) {
-    this.list_devices();
+    this.listDevices();
   }
 }
 

@@ -17,7 +17,7 @@ class Main implements EventListenerObject, RestResponseLister {
     if (ev.type == "click") {
       if (objetoEvento.id.includes("delete_btn_")) {
         this.delete_device(objetoEvento.id);
-      } else if (objetoEvento.id == "submit_btn") {
+      } else if (objetoEvento.id == "submit_btn_add") {
         this.add_device();
       } else if (objetoEvento.id == "submit_btn_update") {
         this.update_device(objetoEvento.id);
@@ -187,7 +187,7 @@ class Main implements EventListenerObject, RestResponseLister {
 // INITIALIZE VARIABLES
 window.onload = function inicio() {
   let miObjeto: Main = new Main();
-  let buttons: Array<string> = ["add_button", "submit_btn", "submit_btn_update", "icon_btn", "list_btn" ];
+  let buttons: Array<string> = ["add_button", "submit_btn_add", "submit_btn_update", "icon_btn", "list_btn" ];
   for (let button of buttons) {
     let btn = miObjeto.getElement(button);
     btn.addEventListener("click", miObjeto);
